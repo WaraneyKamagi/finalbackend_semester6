@@ -1,0 +1,212 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Demo Player",
+      "email": "demo@jokigaming.com",
+      "password": "password123",
+      "role": "user"
+    },
+    {
+      "id": "admin-1",
+      "name": "Admin Joki",
+      "email": "admin@joki.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": "c4e5",
+      "name": "marcel",
+      "email": "marcel@joki.com",
+      "password": "marcel123",
+      "role": "user"
+    },
+    {
+      "id": "3c77",
+      "name": "Test User",
+      "email": "test1763915342104@example.com",
+      "password": "password123",
+      "role": "user"
+    },
+    {
+      "id": "b1be",
+      "name": "metuvenom",
+      "email": "mv@gmail.com",
+      "password": "123456",
+      "role": "user"
+    }
+  ],
+  "services": [
+    {
+      "id": "1",
+      "name": "Push Rank",
+      "description": "Bantu capai rank Mythic dengan pilot pro dan jadwal fleksibel.",
+      "basePrice": 275000,
+      "eta": "3-5 hari"
+    },
+    {
+      "id": "2",
+      "name": "Push MMR Hero",
+      "description": "Fokus satu hero untuk naikkan MMR hero favoritmu secara konsisten.",
+      "basePrice": 200000,
+      "eta": "2-4 hari"
+    },
+    {
+      "id": "3",
+      "name": "Push Peak Point",
+      "description": "Optimalkan peak point season ini dengan pilot spesialis turnamen.",
+      "basePrice": 250000,
+      "eta": "4-6 hari"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "userId": "1",
+      "serviceId": "1",
+      "serviceName": "Push Rank",
+      "gameAccount": {
+        "username": "DemoPlayer01",
+        "server": "Asia",
+        "currentRank": "Legend V"
+      },
+      "target": "Mythic",
+      "tier": "priority",
+      "totalPrice": 210000,
+      "notes": "Prioritaskan hero assassin",
+      "status": "Diproses",
+      "paymentMethod": "Transfer Bank",
+      "createdAt": "2025-01-10T08:00:00.000Z",
+      "updatedAt": "2025-01-12T10:00:00.000Z"
+    },
+    {
+      "id": "7ded",
+      "status": "Selesai",
+      "paymentMethod": "Transfer Bank",
+      "userId": "1",
+      "serviceId": "1",
+      "serviceName": "Push Rank",
+      "gameAccount": {
+        "username": "xenonnnn",
+        "server": "indonesia",
+        "currentRank": "master v"
+      },
+      "target": "epic 55",
+      "tier": "express",
+      "notes": "spam mayene bang",
+      "totalPrice": 225000,
+      "createdAt": "2025-11-18T16:56:50.382Z",
+      "updatedAt": "2025-11-18T17:04:07.896Z",
+      "paymentReference": "done"
+    },
+    {
+      "id": "10f3",
+      "status": "Menunggu Konfirmasi",
+      "paymentMethod": "QRIS",
+      "paymentReference": "",
+      "userId": "c4e5",
+      "serviceId": "3",
+      "serviceName": "Push Peak Point",
+      "gameAccount": {
+        "username": "shadow",
+        "server": "asia",
+        "currentRank": "1300"
+      },
+      "target": "1900",
+      "tier": "express",
+      "notes": "push mayene bang ",
+      "totalPrice": 375000,
+      "createdAt": "2025-11-18T17:44:25.997Z",
+      "updatedAt": "2025-11-18T17:44:34.370Z"
+    },
+    {
+      "id": "1451",
+      "status": "Menunggu Konfirmasi",
+      "paymentMethod": "QRIS",
+      "paymentReference": "",
+      "userId": "c4e5",
+      "serviceId": "2",
+      "serviceName": "Push MMR Hero",
+      "gameAccount": {
+        "username": "shadow",
+        "password": "sgadiw123",
+        "heroName": "Yao",
+        "mmrCurrent": 1600,
+        "mmrTarget": 5000
+      },
+      "target": "MMR 5000",
+      "tier": "express",
+      "notes": "spam sss yah bang!",
+      "totalPrice": 1830000,
+      "createdAt": "2025-11-18T17:56:55.075Z",
+      "updatedAt": "2025-11-18T17:56:58.808Z"
+    },
+    {
+      "id": "3c45",
+      "status": "Diproses",
+      "paymentMethod": "Transfer Bank",
+      "paymentReference": "",
+      "userId": "c4e5",
+      "serviceId": "1",
+      "serviceName": "Push Rank",
+      "gameAccount": {
+        "username": "walawe",
+        "password": "walawe123",
+        "currentRank": "Grandmaster",
+        "targetRank": "Legend",
+        "currentStar": 0,
+        "targetStar": 100
+      },
+      "target": "Rank Legend (Bintang 100)",
+      "tier": "express",
+      "notes": "",
+      "totalPrice": 1425000,
+      "createdAt": "2025-11-18T18:25:50.262Z",
+      "updatedAt": "2025-11-18T18:26:26.872Z"
+    },
+    {
+      "id": "fb0e",
+      "status": "Diproses",
+      "paymentMethod": "Transfer Bank",
+      "paymentReference": "123",
+      "userId": "c4e5",
+      "serviceId": "3",
+      "serviceName": "Push Peak Point",
+      "gameAccount": {
+        "username": "sayafushi",
+        "password": "123",
+        "peakPoint": 1200,
+        "targetPeakPoint": 2000
+      },
+      "target": "Peak 2000",
+      "tier": "express",
+      "notes": "push ming bang sama dyadia",
+      "totalPrice": 975000,
+      "createdAt": "2025-11-23T14:15:23.737Z",
+      "updatedAt": "2025-11-23T14:15:56.120Z"
+    },
+    {
+      "id": "059a",
+      "status": "Diproses",
+      "paymentMethod": "QRIS",
+      "paymentReference": "",
+      "userId": "b1be",
+      "serviceId": "1",
+      "serviceName": "Push Rank",
+      "gameAccount": {
+        "username": "metuvenom",
+        "password": "123456",
+        "currentRank": "Legend",
+        "targetRank": "Legend",
+        "currentStar": 100,
+        "targetStar": 1000
+      },
+      "target": "Rank Legend (Bintang 1000)",
+      "tier": "express",
+      "notes": "carikan lover juga\n",
+      "totalPrice": 13912500,
+      "createdAt": "2025-11-23T16:31:05.228Z",
+      "updatedAt": "2025-11-23T16:32:07.122Z"
+    }
+  ]
+}
