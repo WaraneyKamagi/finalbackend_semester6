@@ -20,14 +20,12 @@ func main() {
 	config.LoadConfig()
 
 	// 2. Inisialisasi Repository (layer database)
-	// Mode In-Memory: data disimpan di RAM, cocok untuk testing Postman
-	// Ganti ke NewUserRepository(), NewServiceRepository(), NewOrderRepository()
-	// jika ingin menggunakan Supabase
-	userRepo := repository.NewMemoryUserRepository()
-	serviceRepo := repository.NewMemoryServiceRepository()
-	orderRepo := repository.NewMemoryOrderRepository()
+	// Mode Supabase: data disimpan secara persisten di Supabase PostgreSQL
+	userRepo := repository.NewUserRepository()
+	serviceRepo := repository.NewServiceRepository()
+	orderRepo := repository.NewOrderRepository()
 
-	log.Println("📦 Mode: In-Memory Storage (data akan hilang saat server restart)")
+	log.Println("🗄️  Mode: Supabase Storage (data tersimpan permanen di cloud database)")
 
 	// 3. Inisialisasi Service (layer business logic)
 	userService := service.NewUserService(userRepo)

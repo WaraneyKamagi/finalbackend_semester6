@@ -9,7 +9,6 @@ import (
 
 	"github.com/finalbackend/backend/model"
 	"github.com/finalbackend/backend/repository"
-	"github.com/google/uuid"
 )
 
 // ServiceService interface mendefinisikan kontrak business logic untuk Service
@@ -51,8 +50,8 @@ func (s *serviceService) GetServiceByID(id string) (*model.Service, error) {
 
 // CreateService membuat layanan baru
 func (s *serviceService) CreateService(req model.CreateServiceRequest) (*model.Service, error) {
+	// ID tidak dikirim, dibuat otomatis oleh Supabase (gen_random_uuid)
 	newService := &model.Service{
-		ID:          uuid.New().String()[:4],
 		Name:        req.Name,
 		Description: req.Description,
 		BasePrice:   req.BasePrice,
@@ -99,14 +98,9 @@ func (s *serviceService) UpdateService(id string, req model.UpdateServiceRequest
 
 // DeleteService menghapus layanan berdasarkan ID
 func (s *serviceService) DeleteService(id string) error {
-	// Cek apakah service ada
-	_, err := s.repo.FindByID(id)
-	if err != nil {
-		return err
-	}
-
+	// Repository akan return error jika ID tidak ditemukan
 	if err := s.repo.Delete(id); err != nil {
-		return fmt.Errorf("gagal menghapus layanan: %w", err)
+		return err
 	}
 
 	return nil

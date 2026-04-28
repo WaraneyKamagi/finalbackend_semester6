@@ -1,31 +1,26 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
-import Card from '../components/ui/Card'
 import ServiceList from '../components/Services/ServiceList'
 import { fetchServices } from '../utils/api'
-import hokLogo from '../assets/Mayene-Honor-of-Kings.webp'
 import { useAuth } from '../context/AuthContext'
+import hokLogo from '../assets/Mayene-Honor-of-Kings.webp'
+
+const stats = [
+  { value: '500+', label: 'Orders Completed' },
+  { value: '98%', label: 'Success Rate' },
+  { value: '24/7', label: 'Live Support' },
+]
+
+const steps = [
+  { num: '01', title: 'Pilih Layanan', desc: 'Pilih paket boosting yang sesuai kebutuhanmu.' },
+  { num: '02', title: 'Isi Detail Akun', desc: 'Masukkan info akun game & target rank yang diinginkan.' },
+  { num: '03', title: 'Bayar & Santai', desc: 'Pilot pro kami mulai bekerja — pantau progres real-time.' },
+]
 
 const testimonials = [
-  {
-    name: 'Fajar - Pro Player',
-    quote:
-      'Order push Mythic 50 star selesai dalam 3 hari, komunikasi tim super responsif!',
-    rating: 5,
-  },
-  {
-    name: 'Intan - Content Creator',
-    quote:
-      'Pilotnya rapi, akun aman, dan ada update progres tiap hari. Highly recommended.',
-    rating: 5,
-  },
-  {
-    name: 'Rendy - Student',
-    quote:
-      'Harga sesuai kualitas. Bisa request hero favorit, hasilnya memuaskan!',
-    rating: 5,
-  },
+  { name: 'Fajar', role: 'Pro Player', quote: 'Push Mythic 50 star selesai 3 hari, komunikasi super responsif!', rating: 5 },
+  { name: 'Intan', role: 'Content Creator', quote: 'Pilotnya rapi, akun aman, update progres tiap hari. Highly recommended.', rating: 5 },
+  { name: 'Rendy', role: 'Student', quote: 'Harga sesuai kualitas. Bisa request hero favorit, hasilnya memuaskan!', rating: 5 },
 ]
 
 const LandingPage = () => {
@@ -51,131 +46,158 @@ const LandingPage = () => {
   }, [])
 
   return (
-    <div className="flex flex-1 flex-col gap-16 bg-linear-to-b from-slate-950 via-slate-950 to-slate-900 pb-16 pt-10">
-      <section className="mx-auto max-w-6xl px-4">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <div className="space-y-8">
-            <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
-              Honor of Kings Boosting Service
-            </p>
-            <h1 className="text-4xl font-black leading-tight text-white md:text-6xl">
-              Jasa joki Honor of Kings dengan pilot top-tier.
-            </h1>
-            <p className="text-lg text-slate-300">
-              Tim spesialis HoK siap push Glory King, tingkatkan Power, dan
-              menjaga akunmu tetap aman dengan update progres real-time.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button onClick={() => navigate('/services')} size="lg">
-                Pesan Joki HoK
-              </Button>
-              {!isAuthenticated && (
-                <Button onClick={() => navigate('/login')} variant="ghost" size="lg">
-                  Masuk Dashboard
-                </Button>
-              )}
+    <div className="flex flex-1 flex-col bg-[#060a13]">
+
+      {/* ═══════════════ HERO SECTION ═══════════════ */}
+      <section className="relative overflow-hidden">
+        {/* Background effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgba(6,182,212,0.12),transparent)]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-cyan-500/5 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-20 lg:py-32">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
+            {/* Left — text */}
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 px-4 py-1.5">
+                <span className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="text-xs font-medium uppercase tracking-widest text-cyan-400">
+                  Professional Game Pilots
+                </span>
+              </div>
+
+              <h1 className="text-4xl font-black leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                Ascend to Your{' '}
+                <span className="text-gradient-cyan">True Potential</span>
+              </h1>
+
+              <p className="max-w-lg text-base leading-relaxed text-slate-400 sm:text-lg">
+                Tim pilot profesional HoK siap push rank, tingkatkan Power Score,
+                dan jaga akun tetap aman dengan update progres real-time.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <button
+                  onClick={() => navigate('/services')}
+                  className="rounded-xl bg-cyan-500 px-8 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-500/25 transition hover:bg-cyan-400 hover:shadow-cyan-500/40 active:scale-95"
+                >
+                  Mulai Boosting →
+                </button>
+                {!isAuthenticated && (
+                  <button
+                    onClick={() => navigate('/login')}
+                    className="rounded-xl border border-slate-700 bg-slate-800/50 px-8 py-3.5 text-sm font-semibold text-slate-300 transition hover:border-cyan-500/30 hover:text-white"
+                  >
+                    Login Dashboard
+                  </button>
+                )}
+              </div>
+
+              {/* Stats row */}
+              <div className="flex flex-wrap gap-8 pt-4 sm:gap-12">
+                {stats.map((s) => (
+                  <div key={s.label}>
+                    <p className="text-3xl font-black text-white sm:text-4xl">{s.value}</p>
+                    <p className="text-xs font-medium uppercase tracking-wider text-slate-500">{s.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex gap-6 text-sm text-slate-400">
-              <div>
-                <p className="text-3xl font-bold text-white">500+</p>
-                Order selesai
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-white">4.9/5</p>
-                Rating pelanggan
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-white">24/7</p>
-                Live support
-              </div>
-            </div>
-          </div>
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-indigo-500/30 bg-linear-to-br from-indigo-600/10 to-slate-950/60 p-8 shadow-2xl shadow-indigo-500/20">
-            <div className="absolute inset-4 rounded-4xl bg-linear-to-br from-indigo-500/20 to-purple-500/10 blur-3xl" />
-            <div className="relative flex flex-col items-center gap-6 text-white">
-              <div className="relative flex items-center justify-center">
-                <div className="absolute h-64 w-64 rounded-full border border-indigo-500/40 animate-ping opacity-60" />
-                <div className="h-64 w-64 rounded-4xl bg-linear-to-br from-indigo-600/40 to-violet-700/30 p-6 shadow-inner shadow-black/40 backdrop-blur">
-                  <img
-                    src={hokLogo}
-                    alt="Honor of Kings neon crest"
-                    className="h-full w-full object-contain drop-shadow-[0_0_25px_rgba(99,102,241,0.7)]"
-                  />
-                </div>
-              </div>
-              <div className="space-y-4 text-center">
-                <p className="text-sm uppercase tracking-[0.4em] text-indigo-200">
-                  Honor of Kings Focus
-                </p>
-                <h3 className="text-2xl font-bold">
-                  Monitoring order HoK langsung dari dashboard.
-                </h3>
-                <ul className="space-y-2 text-sm text-slate-200">
-                  <li>- Update Glory / King Star setiap sesi push</li>
-                  <li>- Notifikasi status via email & WhatsApp</li>
-                  <li>- Pilot profesional server Garena & China client</li>
-                </ul>
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-slate-100 backdrop-blur">
-                  <p className="text-xs uppercase tracking-[0.3em] text-indigo-200">
-                    Slot Honor of Kings Berikut
-                  </p>
-                  <p className="text-4xl font-black text-white">02:30 WIB</p>
-                  <p className="text-slate-300">
-                    Booking HoK sekarang, seat pilot terbatas!
-                  </p>
-                </div>
+
+            {/* Right — visual */}
+            <div className="relative hidden lg:flex items-center justify-center">
+              <div className="absolute h-80 w-80 rounded-full border border-cyan-500/10 animate-[spin_20s_linear_infinite]" />
+              <div className="absolute h-64 w-64 rounded-full border border-cyan-500/20 animate-[spin_15s_linear_infinite_reverse]" />
+              <div className="relative h-72 w-72 overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-slate-900/60 p-6 shadow-2xl glow-cyan">
+                <img
+                  src={hokLogo}
+                  alt="Honor of Kings"
+                  className="h-full w-full object-contain drop-shadow-[0_0_30px_rgba(6,182,212,0.5)]"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        id="services"
-        className="mx-auto flex max-w-6xl flex-col gap-6 px-4"
-      >
-        <div className="flex flex-col gap-4 text-center">
-          <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
-            Layanan HoK Unggulan
-          </p>
-          <h2 className="text-3xl font-bold text-white md:text-4xl">
-            Pilih paket push Honor of Kings sesuai kebutuhanmu
-          </h2>
-          <p className="text-slate-400">
-            Fokus pada Glory Rank, Power Score, dan hero favorit HoK dengan
-            pilot profesional.
-          </p>
+      {/* ═══════════════ HOW IT WORKS ═══════════════ */}
+      <section className="border-t border-cyan-500/5 bg-[#080d18]">
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+          <div className="mb-14 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
+              How it works
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Proses simpel, hasil maksimal
+            </h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {steps.map((step) => (
+              <div
+                key={step.num}
+                className="group rounded-2xl border border-cyan-500/10 bg-[#0c1220] p-8 transition hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5"
+              >
+                <span className="text-4xl font-black text-cyan-500/20 transition group-hover:text-cyan-500/40">
+                  {step.num}
+                </span>
+                <h3 className="mt-4 text-lg font-bold text-white">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">{step.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <ServiceList services={services} loading={loading} error={error} />
       </section>
 
-      <section
-        id="testimoni"
-        className="mx-auto flex max-w-6xl flex-col gap-6 px-4"
-      >
-        <div className="flex flex-col gap-2 text-center">
-          <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
-            testimoni honor of kings
-          </p>
-          <h2 className="text-3xl font-bold text-white">
-            Testimoni Player HoK
-          </h2>
+      {/* ═══════════════ SERVICES ═══════════════ */}
+      <section id="services" className="border-t border-cyan-500/5">
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+          <div className="mb-14 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
+              Pricing & Services
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Pilih paket boosting HoK mu
+            </h2>
+            <p className="mt-3 text-slate-400">
+              Semua paket termasuk pilot profesional, jadwal fleksibel, dan laporan harian.
+            </p>
+          </div>
+          <ServiceList services={services} loading={loading} error={error} />
         </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {testimonials.map((item) => (
-            <Card key={item.name} className="space-y-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.4em] text-yellow-200">
-                  Rating
-                </p>
-                <p className="text-2xl font-bold text-yellow-300">
-                  {item.rating.toFixed(1)} / 5
-                </p>
+      </section>
+
+      {/* ═══════════════ TESTIMONIALS ═══════════════ */}
+      <section id="testimoni" className="border-t border-cyan-500/5 bg-[#080d18]">
+        <div className="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+          <div className="mb-14 text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
+              Testimonials & Trust
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+              Dipercaya ratusan player
+            </h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.map((t) => (
+              <div
+                key={t.name}
+                className="rounded-2xl border border-cyan-500/10 bg-[#0c1220] p-6 transition hover:border-cyan-500/25"
+              >
+                {/* Stars */}
+                <div className="flex gap-0.5 text-cyan-400">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-slate-300">"{t.quote}"</p>
+                <div className="mt-5 border-t border-white/5 pt-4">
+                  <p className="text-sm font-semibold text-white">{t.name}</p>
+                  <p className="text-xs text-cyan-500/60">{t.role}</p>
+                </div>
               </div>
-              <p className="text-base text-slate-200">"{item.quote}"</p>
-              <p className="text-sm font-semibold text-white">{item.name}</p>
-            </Card>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     </div>
@@ -183,4 +205,3 @@ const LandingPage = () => {
 }
 
 export default LandingPage
-

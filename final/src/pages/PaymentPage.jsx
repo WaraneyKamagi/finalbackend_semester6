@@ -40,7 +40,7 @@ const PaymentPage = () => {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-10 text-center text-slate-200">
+      <div className="mx-auto max-w-4xl px-6 py-12 text-center text-slate-300">
         Memuat order...
       </div>
     )
@@ -48,22 +48,22 @@ const PaymentPage = () => {
 
   if (error || !order) {
     return (
-      <Card className="mx-auto mt-10 max-w-3xl text-center text-red-200">
+      <Card className="mx-auto mt-12 max-w-3xl text-center text-red-300">
         {error || 'Order tidak ditemukan'}
       </Card>
     )
   }
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-10">
+    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-12">
       <div>
-        <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
           pembayaran order
         </p>
-        <h1 className="text-4xl font-bold text-white">
-          Order #{order.id.toString().padStart(4, '0')}
+        <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
+          Order #{order.id?.slice(0, 8)}
         </h1>
-        <p className="text-slate-400">
+        <p className="mt-1 text-slate-400">
           Lengkapi pembayaran agar order segera diproses tim pilot.
         </p>
       </div>
@@ -73,4 +73,3 @@ const PaymentPage = () => {
 }
 
 export default PaymentPage
-

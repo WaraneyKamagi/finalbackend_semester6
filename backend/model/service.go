@@ -6,7 +6,7 @@ package model
 
 // Service merepresentasikan entitas layanan di database
 type Service struct {
-	ID          string `json:"id"`
+	ID          string `json:"id,omitempty"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	BasePrice   int    `json:"basePrice"`

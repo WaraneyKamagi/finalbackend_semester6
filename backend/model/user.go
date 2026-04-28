@@ -8,7 +8,7 @@ import "time"
 
 // User merepresentasikan entitas user di database
 type User struct {
-	ID        string    `json:"id"`
+	ID        string    `json:"id,omitempty"`
 	Name      string    `json:"name"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password,omitempty"` // omitempty agar tidak dikirim ke response

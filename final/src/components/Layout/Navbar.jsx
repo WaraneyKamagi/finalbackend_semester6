@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import Button from '../ui/Button'
 import { useAuth } from '../../context/AuthContext'
 
 const baseLinks = [
@@ -29,28 +28,30 @@ const Navbar = () => {
 
   const linkClasses = ({ isActive }) =>
     [
-      'text-sm font-semibold tracking-wide transition',
-      isActive ? 'text-white' : 'text-slate-400 hover:text-white',
+      'text-sm font-medium tracking-wide transition-colors duration-200',
+      isActive ? 'text-cyan-400' : 'text-slate-400 hover:text-cyan-300',
     ].join(' ')
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4">
-        <Link to="/" className="flex items-center gap-3">
-          <div className="rounded-2xl bg-indigo-500/20 px-3 py-2 text-sm font-black uppercase tracking-widest text-indigo-300">
-            JT
+    <header className="sticky top-0 z-40 border-b border-cyan-500/10 bg-[#060a13]/90 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-sm font-black text-cyan-400 transition group-hover:bg-cyan-500/20 group-hover:shadow-lg group-hover:shadow-cyan-500/20">
+            ⚔
           </div>
           <div>
-            <p className="font-black uppercase tracking-wide text-white">
+            <p className="font-extrabold uppercase tracking-wider text-white text-sm">
               JokiTorang
             </p>
-            <p className="text-xs uppercase tracking-widest text-slate-400">
-              Boosting Rank Service
+            <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-500/60">
+              Pro Game Pilots
             </p>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        {/* Desktop nav */}
+        <nav className="hidden items-center gap-8 md:flex">
           {menuItems.map((item) => (
             <NavLink key={item.to} to={item.to} className={linkClasses}>
               {item.label}
@@ -58,37 +59,51 @@ const Navbar = () => {
           ))}
         </nav>
 
+        {/* Auth */}
         <div className="hidden items-center gap-3 md:flex">
           {isAuthenticated ? (
             <>
-              <span className="text-sm font-medium text-slate-300">
-                Hi, {user?.name?.split(' ')[0] || 'Player'}
+              <span className="text-sm font-medium text-slate-400">
+                Hi, <span className="text-cyan-400">{user?.name?.split(' ')[0] || 'Player'}</span>
               </span>
-              <Button variant="secondary" onClick={handleLogout}>
+              <button
+                onClick={handleLogout}
+                className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-red-500/40 hover:text-red-300"
+              >
                 Logout
-              </Button>
+              </button>
             </>
           ) : (
             <>
-              <Button variant="ghost" onClick={() => navigate('/login')}>
+              <button
+                onClick={() => navigate('/login')}
+                className="text-sm font-medium text-slate-400 transition hover:text-cyan-400"
+              >
                 Login
-              </Button>
-              <Button onClick={() => navigate('/register')}>Register</Button>
+              </button>
+              <button
+                onClick={() => navigate('/register')}
+                className="rounded-xl bg-cyan-500 px-5 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/30"
+              >
+                Register
+              </button>
             </>
           )}
         </div>
 
+        {/* Mobile menu button */}
         <button
           className="flex items-center text-sm font-semibold uppercase tracking-[0.3em] text-white md:hidden"
           aria-label="Toggle menu"
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => setMenuOpen((p) => !p)}
         >
-          {menuOpen ? 'Close' : 'Menu'}
+          {menuOpen ? '✕' : '☰'}
         </button>
       </div>
 
+      {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-slate-800/70 bg-slate-950/95 px-4 py-6 md:hidden">
+        <div className="border-t border-cyan-500/10 bg-[#060a13]/98 px-6 py-6 md:hidden">
           <nav className="flex flex-col gap-4">
             {menuItems.map((item) => (
               <NavLink
@@ -104,25 +119,30 @@ const Navbar = () => {
           <div className="mt-6 flex flex-col gap-3">
             {isAuthenticated ? (
               <>
-                <p className="text-sm text-slate-300">
-                  Masuk sebagai{' '}
-                  <span className="font-semibold text-white">
-                    {user?.name}
-                  </span>
+                <p className="text-sm text-slate-400">
+                  Masuk sebagai <span className="font-semibold text-cyan-400">{user?.name}</span>
                 </p>
-                <Button variant="secondary" onClick={handleLogout}>
+                <button
+                  onClick={handleLogout}
+                  className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-2.5 text-sm font-medium text-slate-300"
+                >
                   Logout
-                </Button>
+                </button>
               </>
             ) : (
               <>
-                <Button onClick={() => navigate('/login')}>Login</Button>
-                <Button
-                  variant="secondary"
+                <button
+                  onClick={() => navigate('/login')}
+                  className="rounded-xl bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-slate-950"
+                >
+                  Login
+                </button>
+                <button
                   onClick={() => navigate('/register')}
+                  className="rounded-xl border border-slate-700 bg-slate-800/50 px-4 py-2.5 text-sm font-medium text-slate-300"
                 >
                   Register
-                </Button>
+                </button>
               </>
             )}
           </div>

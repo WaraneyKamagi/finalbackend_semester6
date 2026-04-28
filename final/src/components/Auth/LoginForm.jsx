@@ -65,12 +65,12 @@ const LoginForm = ({ redirectTo = '/' }) => {
       />
 
       {authError && (
-        <p className="rounded-2xl border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+        <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
           {authError}
         </p>
       )}
       {successMessage && (
-        <p className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-3 text-sm text-emerald-200">
+        <p className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-300">
           {successMessage}
         </p>
       )}

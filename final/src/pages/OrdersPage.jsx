@@ -46,8 +46,8 @@ const OrdersPage = () => {
   const filteredOrders = useMemo(() => {
     return orders.filter((order) => {
       const matchQuery =
-        order.service?.name?.toLowerCase().includes(query.toLowerCase()) ||
-        order.target?.toLowerCase().includes(query.toLowerCase())
+        (order.serviceName || '').toLowerCase().includes(query.toLowerCase()) ||
+        (order.target || '').toLowerCase().includes(query.toLowerCase())
       const matchStatus =
         statusFilter === 'ALL' || order.status === statusFilter
       return matchQuery && matchStatus
@@ -59,61 +59,49 @@ const OrdersPage = () => {
   }
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10">
+    <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12">
       <div className="flex flex-col gap-3">
-        <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
           tracking order
         </p>
-        <h1 className="text-4xl font-bold text-white">Order saya</h1>
+        <h1 className="text-3xl font-bold text-white sm:text-4xl">Order saya</h1>
         <p className="text-slate-400">
           Pantau status pembayaran dan progres push rank kamu.
         </p>
       </div>
 
-      <Card className="grid gap-4 md:grid-cols-3">
+      <Card className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Input
           label="Cari layanan / target"
           name="query"
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Contoh: Mythic, Push Rank"
         />
-        <label className="flex flex-col gap-2 text-sm text-slate-200">
-          <span className="font-medium text-slate-100">Status</span>
+        <label className="flex flex-col gap-2 text-sm">
+          <span className="font-medium text-slate-300">Status</span>
           <select
-            className="rounded-2xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="rounded-xl border border-cyan-500/10 bg-[#0a0f1e] px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
             value={statusFilter}
-            onChange={(event) => setStatusFilter(event.target.value)}
+            onChange={(e) => setStatusFilter(e.target.value)}
           >
             {statusOptions.map((status) => (
               <option key={status} value={status}>
-                {status}
+                {status === 'ALL' ? 'Semua Status' : status}
               </option>
             ))}
           </select>
         </label>
         <div className="flex flex-col gap-2">
-          <span className="text-sm font-medium text-slate-100">
-            Buat order baru
-          </span>
+          <span className="text-sm font-medium text-slate-300">Buat order baru</span>
           <Button onClick={() => navigate('/services')}>Pesan Layanan</Button>
         </div>
       </Card>
 
-      {loading && (
-        <Card className="text-center text-slate-200">Memuat order...</Card>
-      )}
-
-      {error && (
-        <Card className="text-center text-red-200">
-          Gagal memuat order: {error}
-        </Card>
-      )}
-
+      {loading && <Card className="text-center text-slate-300">Memuat order...</Card>}
+      {error && <Card className="text-center text-red-300">Gagal memuat order: {error}</Card>}
       {!loading && !error && filteredOrders.length === 0 && (
-        <Card className="text-center text-slate-300">
-          Belum ada order yang sesuai filter.
-        </Card>
+        <Card className="text-center text-slate-400">Belum ada order yang sesuai filter.</Card>
       )}
 
       <div className="space-y-4">
@@ -126,4 +114,3 @@ const OrdersPage = () => {
 }
 
 export default OrdersPage
-

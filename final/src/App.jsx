@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Layout/Navbar'
 import Footer from './components/Layout/Footer'
+import Chatbot from './components/Chatbot'
 import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -63,7 +64,7 @@ const AdminRoute = ({ children }) => {
 
 function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-950 text-white">
+    <div className="flex min-h-screen flex-col bg-[#060a13] text-white">
       <Navbar />
       <main className="flex-1">
         <Routes>
@@ -107,6 +108,8 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      {/* Chatbot konsultasi gratis — tampil di semua halaman */}
+      <Chatbot />
     </div>
   )
 }

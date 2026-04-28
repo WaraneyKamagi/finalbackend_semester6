@@ -51,7 +51,7 @@ const OrderPage = () => {
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-10">
       <div>
-        <p className="text-xs uppercase tracking-[0.5em] text-indigo-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.4em] text-cyan-500">
           formulir order
         </p>
         <h1 className="text-4xl font-bold text-white">{service.name}</h1>

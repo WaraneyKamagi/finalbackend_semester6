@@ -24,7 +24,7 @@ type GameAccount struct {
 
 // Order merepresentasikan entitas pesanan di database
 type Order struct {
-	ID               string      `json:"id"`
+	ID               string      `json:"id,omitempty"`
 	UserID           string      `json:"userId"`
 	ServiceID        string      `json:"serviceId"`
 	ServiceName      string      `json:"serviceName"`
@@ -36,8 +36,8 @@ type Order struct {
 	Status           string      `json:"status"`
 	PaymentMethod    string      `json:"paymentMethod"`
 	PaymentReference string      `json:"paymentReference"`
-	CreatedAt        time.Time   `json:"createdAt"`
-	UpdatedAt        time.Time   `json:"updatedAt"`
+	CreatedAt        time.Time   `json:"createdAt,omitempty"`
+	UpdatedAt        time.Time   `json:"updatedAt,omitempty"`
 }
 
 // CreateOrderRequest adalah payload untuk membuat order baru

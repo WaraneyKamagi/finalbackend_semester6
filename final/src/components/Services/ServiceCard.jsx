@@ -1,6 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import Card from '../ui/Card'
-import Button from '../ui/Button'
 
 const currency = (value) =>
   new Intl.NumberFormat('id-ID', {
@@ -13,30 +11,29 @@ const ServiceCard = ({ service }) => {
   const navigate = useNavigate()
 
   return (
-    <Card className="flex h-full flex-col gap-4">
+    <div className="group flex h-full flex-col justify-between rounded-2xl border border-cyan-500/10 bg-[#0c1220] p-6 transition hover:border-cyan-500/30 hover:shadow-lg hover:shadow-cyan-500/5">
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-indigo-300">
+        <div className="inline-flex items-center rounded-full bg-cyan-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-cyan-400">
           {service.eta}
-        </p>
-        <h3 className="mt-2 text-xl font-semibold text-white">
-          {service.name}
-        </h3>
-        <p className="mt-2 text-sm text-slate-300">{service.description}</p>
-      </div>
-      <div className="flex items-end justify-between">
-        <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-slate-500">
-            mulai dari
-          </p>
-          <p className="text-2xl font-bold text-white">{currency(service.basePrice)}</p>
         </div>
-        <Button onClick={() => navigate(`/order/${service.id}`)}>
-          Pesan
-        </Button>
+        <h3 className="mt-4 text-xl font-bold text-white">{service.name}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400">{service.description}</p>
       </div>
-    </Card>
+
+      <div className="mt-6 flex items-end justify-between border-t border-white/5 pt-5">
+        <div>
+          <p className="text-[10px] uppercase tracking-wider text-slate-500">mulai dari</p>
+          <p className="text-2xl font-black text-white">{currency(service.basePrice)}</p>
+        </div>
+        <button
+          onClick={() => navigate(`/order/${service.id}`)}
+          className="rounded-xl bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95"
+        >
+          Pesan
+        </button>
+      </div>
+    </div>
   )
 }
 
 export default ServiceCard
-

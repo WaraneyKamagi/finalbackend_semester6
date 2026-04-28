@@ -7,7 +7,6 @@ package router
 import (
 	"github.com/finalbackend/backend/handler"
 	"github.com/finalbackend/backend/middleware"
-	"github.com/finalbackend/backend/utils"
 	"github.com/gin-gonic/gin"
 )
 
@@ -46,44 +45,48 @@ func SetupRouter(h *handler.Handler) *gin.Engine {
 		}
 
 		// ---------- Order Routes ----------
-		// GET    /api/orders          → Ambil semua order (admin)
-		// GET    /api/orders/:id      → Ambil order by ID
-		// GET    /api/orders/user/:userId → Ambil order by user ID
-		// POST   /api/orders          → Buat order baru
-		// PUT    /api/orders/:id      → Update order (status/payment)
-		// DELETE /api/orders/:id      → Hapus order
+		// GET    /api/orders               → Ambil semua order (admin)
+		// GET    /api/orders/user/:userId  → Ambil order by user ID
+		// GET    /api/orders/:id           → Ambil order by ID
+		// POST   /api/orders               → Buat order baru
+		// PUT    /api/orders/:id           → Update order (status/payment)
+		// DELETE /api/orders/:id           → Hapus order
+		//
+		// PENTING: /user/:userId HARUS didaftarkan sebelum /:id
+		// Jika /:id duluan, Gin akan menangkap "user" sebagai nilai :id
+		// sehingga GetOrdersByUserID tidak pernah bisa dicapai.
 		orders := api.Group("/orders")
 		{
 			orders.GET("", h.GetAllOrders)
-			orders.GET("/:id", h.GetOrderByID)
 			orders.GET("/user/:userId", h.GetOrdersByUserID)
+			orders.GET("/:id", h.GetOrderByID)
 			orders.POST("", h.CreateOrder)
 			orders.PUT("/:id", h.UpdateOrder)
 			orders.DELETE("/:id", h.DeleteOrder)
 		}
 
 		// ---------- User Routes ----------
-		// GET /api/users → Ambil semua user (admin, tanpa password)
+		// GET /api/users      → Ambil semua user (admin, tanpa password)
+		// GET /api/users/:id  → Ambil user by ID (tanpa password)
 		users := api.Group("/users")
 		{
-			users.GET("", func(c *gin.Context) {
-				allUsers, err := h.UserService.GetAllUsers()
-				if err != nil {
-					utils.InternalError(c, "Gagal mengambil data users")
-					return
-				}
-				utils.SuccessOK(c, "Berhasil mengambil data users", allUsers)
-			})
+			users.GET("", h.GetAllUsers)
+			users.GET("/:id", h.GetUserByID)
+		}
 
-			users.GET("/:id", func(c *gin.Context) {
-				id := c.Param("id")
-				user, err := h.UserService.GetUserByID(id)
-				if err != nil {
-					utils.NotFound(c, "User tidak ditemukan: "+err.Error())
-					return
-				}
-				utils.SuccessOK(c, "Berhasil mengambil data user", user)
-			})
+		// ---------- Chat Routes ----------
+		// POST /api/chat → Chatbot konsultasi gratis (rule-based AI)
+		api.POST("/chat", h.Chat)
+
+		// ---------- Payment Routes ----------
+		// POST /api/payment/qr             → Generate token QR untuk pembayaran
+		// GET  /api/payment/verify/:token  → Verifikasi QR setelah di-scan (membuka browser)
+		// GET  /api/payment/status/:token  → Polling status apakah QR sudah di-scan
+		payment := api.Group("/payment")
+		{
+			payment.POST("/qr", h.GenerateQRToken)
+			payment.GET("/verify/:token", h.VerifyQRPayment)
+			payment.GET("/status/:token", h.CheckQRStatus)
 		}
 	}
 

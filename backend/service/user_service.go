@@ -10,7 +10,6 @@ import (
 
 	"github.com/finalbackend/backend/model"
 	"github.com/finalbackend/backend/repository"
-	"github.com/google/uuid"
 )
 
 // UserService interface mendefinisikan kontrak business logic untuk User
@@ -65,9 +64,8 @@ func (s *userService) Register(req model.RegisterRequest) (*model.UserResponse, 
 		return nil, fmt.Errorf("email sudah digunakan")
 	}
 
-	// Buat user baru
+	// Buat user baru — ID tidak dikirim, dibuat otomatis oleh Supabase (gen_random_uuid)
 	newUser := &model.User{
-		ID:       uuid.New().String()[:4], // Short ID sesuai format frontend
 		Name:     req.Name,
 		Email:    req.Email,
 		Password: req.Password, // TODO: Hash password di production

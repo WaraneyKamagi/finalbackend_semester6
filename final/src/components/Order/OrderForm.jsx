@@ -482,7 +482,7 @@ const OrderForm = ({ service, onSuccess }) => {
               name="rankCurrent"
               value={formData.rankCurrent}
               onChange={handleChange}
-              className="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
             >
               {rankOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -499,7 +499,7 @@ const OrderForm = ({ service, onSuccess }) => {
               name="rankTarget"
               value={formData.rankTarget}
               onChange={handleChange}
-              className="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
             >
               {rankOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -570,7 +570,7 @@ const OrderForm = ({ service, onSuccess }) => {
             rows={3}
             value={formData.notes}
             onChange={handleChange}
-            className="rounded-2xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="rounded-2xl border border-slate-800 bg-slate-950/60 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
             placeholder="Hero favorit, jam online, atau detail lain"
           />
         </label>
@@ -587,7 +587,7 @@ const OrderForm = ({ service, onSuccess }) => {
               className={[
                 'rounded-2xl border px-4 py-3 text-left transition',
                 selectedTier === option.value
-                  ? 'border-indigo-500 bg-indigo-500/10 text-white'
+                  ? 'border-cyan-500 bg-cyan-500/10 text-white'
                   : 'border-slate-800 bg-slate-900/40 text-slate-300 hover:border-slate-700',
               ].join(' ')}
             >

@@ -10,7 +10,6 @@ import (
 
 	"github.com/finalbackend/backend/model"
 	"github.com/finalbackend/backend/repository"
-	"github.com/google/uuid"
 )
 
 // OrderService interface mendefinisikan kontrak business logic untuk Order
@@ -64,8 +63,8 @@ func (s *orderService) GetOrdersByUserID(userID string) ([]model.Order, error) {
 func (s *orderService) CreateOrder(req model.CreateOrderRequest) (*model.Order, error) {
 	now := time.Now()
 
+	// ID tidak dikirim, dibuat otomatis oleh Supabase (gen_random_uuid)
 	newOrder := &model.Order{
-		ID:          uuid.New().String()[:4],
 		UserID:      req.UserID,
 		ServiceID:   req.ServiceID,
 		ServiceName: req.ServiceName,
@@ -89,13 +88,7 @@ func (s *orderService) CreateOrder(req model.CreateOrderRequest) (*model.Order, 
 
 // UpdateOrder mengupdate status atau informasi pembayaran order
 func (s *orderService) UpdateOrder(id string, req model.UpdateOrderRequest) (*model.Order, error) {
-	// Cek apakah order ada
-	_, err := s.repo.FindByID(id)
-	if err != nil {
-		return nil, err
-	}
-
-	// Siapkan data update
+	// Siapkan data update — repository akan return error jika ID tidak ditemukan
 	updates := map[string]interface{}{
 		"updatedAt": time.Now().Format(time.RFC3339),
 	}
@@ -112,7 +105,7 @@ func (s *orderService) UpdateOrder(id string, req model.UpdateOrderRequest) (*mo
 
 	updated, err := s.repo.Update(id, updates)
 	if err != nil {
-		return nil, fmt.Errorf("gagal mengupdate order: %w", err)
+		return nil, err
 	}
 
 	return updated, nil
@@ -120,14 +113,9 @@ func (s *orderService) UpdateOrder(id string, req model.UpdateOrderRequest) (*mo
 
 // DeleteOrder menghapus order berdasarkan ID
 func (s *orderService) DeleteOrder(id string) error {
-	// Cek apakah order ada
-	_, err := s.repo.FindByID(id)
-	if err != nil {
-		return err
-	}
-
+	// Repository akan return error jika ID tidak ditemukan
 	if err := s.repo.Delete(id); err != nil {
-		return fmt.Errorf("gagal menghapus order: %w", err)
+		return err
 	}
 
 	return nil
